@@ -7,16 +7,18 @@ public class PlayerController : MonoBehaviour
     float forwardSpeed = 10f;
     float horizontalSpeed = 5f;
     float jumpForce = 20f;
-
     Rigidbody rb;
+    Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+        animator.SetBool("Jumping", !IsGrounded());
         MoveForward();
         HandleInput();
     }
