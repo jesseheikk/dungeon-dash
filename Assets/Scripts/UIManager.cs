@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Text scoreText;
     [SerializeField] GameObject gameOverPanel;
+    [SerializeField] GameObject menu;
 
     void Awake()
     {
@@ -27,6 +28,23 @@ public class UIManager : MonoBehaviour
     public void ShowGameOver()
     {
         gameOverPanel.SetActive(true);
+    }
+
+    public void StartGame()
+    {
+        GameManager.Instance.StartGame();
+        menu.SetActive(false);
+    }
+
+    public void OpenOptions()
+    {
+        Debug.Log("Open Options");
+    }
+
+    public void ExitGame()
+    {
+        Debug.Log("Exit game");
+        //Application.Quit();
     }
 }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public bool IsGameRunning { get; private set; } = true;
+    public bool IsGameRunning { get; private set; } = false;
 
     int score = 0;
 
@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
     {
         score += Mathf.RoundToInt(Time.deltaTime * 10);
         UIManager.Instance.UpdateScoreUI(score);
+    }
+
+    public void StartGame()
+    {
+        IsGameRunning = true;
     }
 
     public void GameOver()
