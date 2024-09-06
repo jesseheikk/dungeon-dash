@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         IsGameRunning = true;
+        CameraController.Instance.SetCameraOffSet(new Vector3(0f, 5f, -5f));
+        PlayerController.Instance.StartRunning();
     }
 
     public void GameOver()

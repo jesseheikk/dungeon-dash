@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+
     float forwardSpeed = 10f;
     float horizontalSpeed = 5f;
     float jumpForce = 20f;
     Rigidbody rb;
     Animator animator;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -30,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     void MoveForward()
     {
+        animator.SetBool("Running", true);
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
     }
 
@@ -47,5 +62,11 @@ public class PlayerController : MonoBehaviour
     bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, 0.1f);
+    }
+
+    public void StartRunning()
+    {
+        transform.Rotate(0f, 180f, 0f);
+        animator.SetTrigger("Run");
     }
 }
