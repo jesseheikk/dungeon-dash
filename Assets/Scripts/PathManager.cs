@@ -55,7 +55,7 @@ public class PathManager : MonoBehaviour
     void RemoveOldPath()
     {
         // If there are more prefabs than we need, remove the oldest one
-        if (activePaths.Count > initialPaths + 5) // Keep some behind the player to prevent camera from seeing the glitches
+        if (activePaths.Count > initialPaths + 2) // Keep some behind the player to prevent camera from seeing the glitches
         {
             GameObject oldPathPiece = activePaths.Dequeue();
             Destroy(oldPathPiece);
