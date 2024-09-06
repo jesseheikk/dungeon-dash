@@ -5,20 +5,21 @@ using UnityEngine;
 public class PathManager : MonoBehaviour
 {
     [SerializeField] GameObject[] pathPrefabs;
-    [SerializeField] GameObject[] obstaclePrefabs;
     [SerializeField] Transform player;
 
-    int initialPaths = 20;
-    float spawnZ = 0f;
-
     // Path dimensions for prefab position calculations
-    float pathLength = 3f;
+    float pathLength = 9f;
     float pathWidth = 18f;
+    float spawnZ = 0f;
+    float spawnX = 0f;
+    int initialPaths = 20;
 
     Queue<GameObject> activePaths = new Queue<GameObject>();
 
     void Start()
     {
+        spawnX = player.position.x - pathWidth / 2;
+
         // Pre-spawn the initial paths
         for (int i = 0; i < initialPaths; i++)
         {
@@ -32,7 +33,7 @@ public class PathManager : MonoBehaviour
         if (player.position.z + pathLength * initialPaths > spawnZ)
         {
             SpawnPath();
-            SpawnObstacle();
+            //SpawnObstacle();
             RemoveOldPath();
         }
     }
@@ -42,7 +43,7 @@ public class PathManager : MonoBehaviour
         GameObject randomPathPrefab = pathPrefabs[Random.Range(0, pathPrefabs.Length)];
 
         // Spawn the prefab at the correct position based on spawnZ
-        Vector3 spawnPosition = new Vector3(0, 0, spawnZ);
+        Vector3 spawnPosition = new Vector3(spawnX, 0, spawnZ);
         GameObject pathPiece = Instantiate(randomPathPrefab, spawnPosition, randomPathPrefab.transform.rotation);
 
         // Add the newly spawned prefab to the queue
@@ -50,17 +51,6 @@ public class PathManager : MonoBehaviour
 
         // Move the spawnZ forward for the next prefab
         spawnZ += pathLength;        
-    }
-
-    void SpawnObstacle()
-    {
-        GameObject randomObstaclePrefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
-
-        // Calculate obstacle position with random X
-        float randomXPosition = Random.Range(0, pathWidth);
-        Vector3 obstaclePosition = new Vector3(randomXPosition, 0, spawnZ);
-
-        Instantiate(randomObstaclePrefab, obstaclePosition, randomObstaclePrefab.transform.rotation);
     }
 
     void RemoveOldPath()
