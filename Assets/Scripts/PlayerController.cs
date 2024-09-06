@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.IsGameRunning)
+        {
+            return;
+        }
+
         animator.SetBool("Jumping", !IsGrounded());
         MoveForward();
         HandleInput();

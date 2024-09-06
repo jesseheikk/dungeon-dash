@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
+    public bool IsGameRunning { get; private set; } = true;
 
     int score = 0;
-    bool isGameRunning = true;
 
     void Awake()
     {
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isGameRunning)
+        if (IsGameRunning)
         {
             UpdateScore();
         }
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        isGameRunning = false;
+        IsGameRunning = false;
         UIManager.Instance.ShowGameOver();
     }
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance;
+    public static UIManager Instance { get; private set; };
 
     [SerializeField] Text scoreText;
     [SerializeField] GameObject gameOverPanel;
