@@ -784,9 +784,8 @@ MonoBehaviour:
   pathPrefabs:
   - {fileID: 4810405733541220729, guid: 106c18da40e046d398f84df53e3ffb01, type: 3}
   - {fileID: 4810405733541220729, guid: e224c1296abf80bbe91acb9e31c4f45d, type: 3}
-  - {fileID: 7202058037140404129, guid: 1700d3b92795a4884ba3419476be3d83, type: 3}
-  obstaclePrefabs: []
-  fogPrefab: {fileID: 0}
+  - {fileID: 1026256839068753145, guid: 19bf04cff6a42fcc5aa9e06a0d6ab73e, type: 3}
+  emptyPathPrefab: {fileID: 7202058037140404129, guid: 1700d3b92795a4884ba3419476be3d83, type: 3}
   player: {fileID: 1958457078}
 --- !u!1001 &1958457071
 PrefabInstance:

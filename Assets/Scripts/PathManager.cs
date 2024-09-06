@@ -5,14 +5,15 @@ using UnityEngine;
 public class PathManager : MonoBehaviour
 {
     [SerializeField] GameObject[] pathPrefabs;
+    [SerializeField] GameObject emptyPathPrefab;
     [SerializeField] Transform player;
 
     // Path dimensions for prefab position calculations
-    float pathLength = 9f;
+    float pathLength = 15f;
     float pathWidth = 18f;
     float spawnZ = 0f;
     float spawnX = 0f;
-    int initialPaths = 20;
+    int initialPaths = 10;
 
     Queue<GameObject> activePaths = new Queue<GameObject>();
 
@@ -20,10 +21,10 @@ public class PathManager : MonoBehaviour
     {
         spawnX = player.position.x - pathWidth / 2;
 
-        // Pre-spawn the initial paths
+        // Pre-spawn the initial empty paths
         for (int i = 0; i < initialPaths; i++)
         {
-            SpawnPath();
+            SpawnPath(emptyPathPrefab);
         }
     }
 
@@ -32,19 +33,17 @@ public class PathManager : MonoBehaviour
         // Keep the initial number of paths ahead of player at all times
         if (player.position.z + pathLength * initialPaths > spawnZ)
         {
-            SpawnPath();
-            //SpawnObstacle();
+            GameObject randomPathPrefab = pathPrefabs[Random.Range(0, pathPrefabs.Length)];
+            SpawnPath(randomPathPrefab);
             RemoveOldPath();
         }
     }
 
-    void SpawnPath()
+    void SpawnPath(GameObject pathPrefab)
     {
-        GameObject randomPathPrefab = pathPrefabs[Random.Range(0, pathPrefabs.Length)];
-
         // Spawn the prefab at the correct position based on spawnZ
         Vector3 spawnPosition = new Vector3(spawnX, 0, spawnZ);
-        GameObject pathPiece = Instantiate(randomPathPrefab, spawnPosition, randomPathPrefab.transform.rotation);
+        GameObject pathPiece = Instantiate(pathPrefab, spawnPosition, pathPrefab.transform.rotation);
 
         // Add the newly spawned prefab to the queue
         activePaths.Enqueue(pathPiece);
