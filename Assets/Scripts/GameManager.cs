@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public bool IsGameRunning { get; private set; } = false;
 
-    int score = 0;
+    float score = 0f;
 
     void Awake()
     {
@@ -16,18 +16,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (IsGameRunning)
         {
-            UpdateScore();
+            AddScore(0.1f);
+            UIManager.Instance.UpdateScoreUI(Mathf.RoundToInt(score));
         }
-    }
-
-    void UpdateScore()
-    {
-        score += Mathf.RoundToInt(Time.deltaTime * 10);
-        UIManager.Instance.UpdateScoreUI(score);
     }
 
     public void StartGame()
@@ -46,5 +41,10 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void AddScore(float amount)
+    {
+        score += amount;
     }
 }

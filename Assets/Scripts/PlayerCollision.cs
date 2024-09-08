@@ -19,4 +19,13 @@ public class PlayerCollision : MonoBehaviour
             GameManager.Instance.GameOver();
         }
     }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.CompareTag("ScoreOrb"))
+        {
+            GameManager.Instance.AddScore(5);
+            Destroy(collider.gameObject);
+        }
+    }
 }
